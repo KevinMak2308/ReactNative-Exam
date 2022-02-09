@@ -1,20 +1,39 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { Button, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Todo } from './entities/Todo';
 
 export default function App() {
+  const [id, setId] = useState(Number)
   const [text, setText] = useState('')
   const [todos, setTodos] = useState([] as Todo[])
 
+  const Item = ({ item }: { item: Todo }) => {
+    return (
+      <TouchableOpacity style={styles.item} onPress={() => deleteTodo(new Todo(item.id, item.title))}>
+        <Text style={styles.title}>{item.title}</Text>
+        {/* <Button title="Delete me" onPress={() => deleteTodo(new Todo(id, title))} /> */}
+      </TouchableOpacity>
+    )
+  }
+
   const renderItem = ({ item }: { item: Todo }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{item.title}</Text>
-    </View>
+    <Item item={item} />
   );
 
+  const deleteTodo = (item: Todo) => {
+    console.log(item);
+    setTodos((todos: Todo[]) => {
+      return [...todos.filter(x => x.id !== item.id)]
+    })
+
+  }
+
   const handleAddTodo = () => {
-    const todo = new Todo(Math.random().toString(), text)
+    setId(id + 1)
+    console.log(id);
+
+    const todo = new Todo(Math.random(), text)
     setTodos((todos: Todo[]) => [...todos, todo])
   }
 
@@ -28,7 +47,6 @@ export default function App() {
       <FlatList
         data={todos}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
       />
 
       <StatusBar style="auto" />
