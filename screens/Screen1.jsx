@@ -1,14 +1,22 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleHappy } from '../store/actions/chat.actions';
 
 export default function Screen1() {
     const navigation = useNavigation()
+
+    const isHappy = useSelector(state => state.chat.isHappy)
+    console.log("isHappy", isHappy);
+    const dispatch = useDispatch()
 
     return (
         <View style={styles.container}>
             <Text>Screen 1</Text>
             <Button title="Go to screen 2" onPress={() => navigation.navigate("Screen2")} />
+            <Text>{isHappy.toString()}</Text>
+            <Button title="Toggle happy" onPress={() => dispatch(toggleHappy())} />
         </View>
     );
 }
