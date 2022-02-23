@@ -30,8 +30,8 @@ function ChatStackNavigator() {
 
 const rootReducer = combineReducers({
   chat: chatReducer,
-  //user: UserReducer,
-  //posts: PostReducer
+  // user: UserReducer,
+  // posts: PostReducer
 });
 
 const store = createStore(rootReducer);

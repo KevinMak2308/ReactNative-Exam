@@ -1,9 +1,23 @@
 import { TOGGLE_HAPPY } from "../actions/chat.actions";
 
-const initialState = {
-    isHappy: false
+interface ReduxState {
+    isHappy: boolean
+    counter: number
+    name: string
 }
-const chatReducer = (state = initialState, action: any) => {
+
+const initialState: ReduxState = {
+    isHappy: false,
+    counter: 0,
+    name: "Peter"
+}
+
+interface ReduxAction {
+    type: string,
+    payload?: boolean | number | string
+}
+
+const chatReducer = (state: ReduxState = initialState, action: ReduxAction) => {
     switch (action.type) {
         case TOGGLE_HAPPY:
             console.log("hi");
