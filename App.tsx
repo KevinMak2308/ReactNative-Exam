@@ -10,6 +10,7 @@ import Screen1 from './screens/Screen1';
 import Screen2 from './screens/Screen2';
 import Screen3 from './screens/Screen3';
 import chatReducer from './store/reducers/chat.reducer';
+import userReducer from './store/reducers/user.reducer';
 import { StackParamList } from "./typings/navigations";
 
 
@@ -33,7 +34,7 @@ function ChatStackNavigator() {
 
 const rootReducer = combineReducers({
   chat: chatReducer,
-  // user: UserReducer,
+  user: userReducer,
   // posts: PostReducer
 });
 
