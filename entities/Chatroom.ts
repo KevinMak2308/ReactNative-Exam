@@ -3,6 +3,6 @@ export class Chatroom {
         public message: string, public timestamp: Date) { }
 }
 
-enum Status {
+export enum Status {
     READ = "READ", UNREAD = "UNREAD"
 }
