@@ -5,10 +5,10 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import ReduxThunk from 'redux-thunk';
-import HomeScreen from './screens/HomeScreen';
 import Screen1 from './screens/Screen1';
 import Screen2 from './screens/Screen2';
 import Screen3 from './screens/Screen3';
+import SignupScreen from './screens/SignupScreen';
 import chatReducer from './store/reducers/chat.reducer';
 import userReducer from './store/reducers/user.reducer';
 import { StackParamList } from "./typings/navigations";
@@ -49,7 +49,7 @@ export default function App() {
 
       <NavigationContainer>
         <Tab.Navigator screenOptions={{ headerShown: false }}>
-          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Home" component={SignupScreen} />
           {/* <Tab.Screen name="Discover" component={DiscoverScreen} /> */}
           <Tab.Screen name="Chat" component={ChatStackNavigator} />
           {/* <Tab.Screen name="Menu" component={MenuScreen} /> */}
