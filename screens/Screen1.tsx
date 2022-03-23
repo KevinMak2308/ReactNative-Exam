@@ -19,7 +19,7 @@ export default function Screen1() {
     const isHappy = useSelector((state: any) => state.chat.isHappy) // subscribe to redux store and select attribute (isHappy)
     const chatrooms: Chatroom[] = useSelector((state: any) => state.chat.chatrooms)
 
-    console.log("isHappy", isHappy);
+    // console.log("isHappy", isHappy);
     const dispatch = useDispatch()
 
     const handleAddChatroom = () => {
@@ -40,7 +40,6 @@ export default function Screen1() {
             <FlatList
                 data={chatrooms}
                 renderItem={renderChatroom}
-                keyExtractor={item => item.title} // chatroom titles must be unique when I do this.
             />
 
             <TextInput
