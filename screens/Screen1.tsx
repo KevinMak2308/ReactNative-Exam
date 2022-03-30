@@ -4,7 +4,7 @@ import React from 'react';
 import { Button, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Chatroom, Status } from '../entities/Chatroom';
-import { addChatroom, toggleHappy } from '../store/actions/chat.actions';
+import { addChatroom, fetchChatrooms, toggleHappy } from '../store/actions/chat.actions';
 import { StackParamList } from "../typings/navigations";
 
 type ScreenNavigationType = NativeStackNavigationProp<
@@ -21,6 +21,11 @@ export default function Screen1() {
 
     // console.log("isHappy", isHappy);
     const dispatch = useDispatch()
+
+
+    // look up useEffect
+
+    dispatch(fetchChatrooms())
 
     const handleAddChatroom = () => {
         const chatroom: Chatroom = new Chatroom(title, Status.UNREAD, '', new Date());
