@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Chatroom, Status } from '../entities/Chatroom';
@@ -22,10 +22,9 @@ export default function Screen1() {
     // console.log("isHappy", isHappy);
     const dispatch = useDispatch()
 
-
-    // look up useEffect
-
-    dispatch(fetchChatrooms())
+    useEffect(() => { // only runs dispatch the first time the component renders
+        dispatch(fetchChatrooms())
+    }, [])
 
     const handleAddChatroom = () => {
         const chatroom: Chatroom = new Chatroom(title, Status.UNREAD, '', new Date());

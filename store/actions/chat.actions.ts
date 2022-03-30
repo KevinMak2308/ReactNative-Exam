@@ -30,10 +30,13 @@ export const fetchChatrooms = () => {
             let chatrooms: Chatroom[] = []
             for (const key in data) {
                 // create Chatroom objects and push them into the array chatrooms.
-                console.log(data[key].title)
+                const obj = data[key];
+                chatrooms.push(new Chatroom(obj.title, obj.status, obj.message, new Date(obj.timestamp), key))
             }
 
-            console.log("data from server", data);
+            console.log("chatrooms", chatrooms);
+
+            // console.log("data from server", data);
             //chatroom.id = data.name;
 
             dispatch({ type: 'FETCH_CHATROOMS', payload: chatrooms })
@@ -47,17 +50,16 @@ export const addChatroom = (chatroom: Chatroom) => {
 
         console.log(token);
 
+        //delete chatroom.id // for an update, this would remove the id attribute (and value) from the chatroom
         const response = await fetch(
             'https://cbscs-7a227-default-rtdb.europe-west1.firebasedatabase.app/chatrooms.json?auth=' + token, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ //javascript to json
-                //key value pairs of data you want to send to server
-                // ...
-                ...chatroom,
-            })
+            body: JSON.stringify(
+                chatroom
+            )
         });
 
         // console.log(await response.json());

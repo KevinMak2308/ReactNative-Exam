@@ -34,7 +34,7 @@ const chatReducer = (state: ReduxState = initialState, action: ReduxAction) => {
 
         case FETCH_CHATROOMS:
             // create a new state object with the action.payload assigned to the chatrooms array.
-            return state;
+            return { ...state, chatrooms: action.payload }
 
         default:
             return state;
