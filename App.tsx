@@ -50,6 +50,7 @@ export default function App() {
       {/* Determine if the user is logged in and display:
       A stack navigator (only) with signup and login
       Our "normal" app with tabs navigation */}
+
       {/* {user !== undefined ? (
                 // Show the app with all navigation
                 
