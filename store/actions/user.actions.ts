@@ -1,6 +1,22 @@
+import * as SecureStore from 'expo-secure-store';
 import { FirebaseSignupSuccess } from "../../entities/FirebaseSignupSuccess";
+import { User } from '../../entities/User';
+
 
 export const SIGNUP = 'SIGNUP';
+export const REHYDRATE_USER = 'REHYDRATE_USER';
+export const LOGOUT = 'LOGOUT';
+
+export const rehydrateUser = (user: User, idToken: string) => {
+    return { type: REHYDRATE_USER, payload: { user, idToken } }
+}
+
+export const logout = () => {
+    SecureStore.deleteItemAsync('idToken');
+    SecureStore.deleteItemAsync('user');
+
+    return { type: LOGOUT }
+}
 
 export const signup = (email: string, password: string) => {
     return async (dispatch: any, getState: any) => {
@@ -29,7 +45,12 @@ export const signup = (email: string, password: string) => {
             const data: FirebaseSignupSuccess = await response.json(); // json to javascript
             console.log("data from server", data);
 
-            dispatch({ type: SIGNUP, payload: { email: data.email, idToken: data.idToken } })
+            const user = new User(data.email, '', '');
+
+            await SecureStore.setItemAsync('idToken', data.idToken);
+            await SecureStore.setItemAsync('user', JSON.stringify(user)); // convert user js-obj. to json
+
+            dispatch({ type: SIGNUP, payload: { user, idToken: data.idToken } })
         }
     };
 };

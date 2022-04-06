@@ -1,16 +1,32 @@
-import React, { useState } from 'react';
+import * as SecureStore from 'expo-secure-store';
+import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { signup } from '../store/actions/user.actions';
+import { useDispatch } from 'react-redux';
+import { rehydrateUser, signup } from '../store/actions/user.actions';
 
 export default function SignupScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
-    const loggedInUser = useSelector((state: any) => state.user.loggedInUser);
-    const token = useSelector((state: any) => state.user.idToken);
-    console.log("signupScreen", loggedInUser);
-    console.log("token", token);
+
+    async function readPersistedUserInfo() {
+        const token = await SecureStore.getItemAsync('idToken');
+        const userJson = await SecureStore.getItemAsync('user');
+        let user = null;
+        if (userJson) {
+            user = JSON.parse(userJson);
+        }
+        if (user) {
+            // then we have a priv. login
+            // restore the signup by updating the redux store based on usre and token.
+            dispatch(rehydrateUser(user, token!))
+        }
+    }
+
+    useEffect(() => {
+        readPersistedUserInfo();
+    }, [])
+
 
     return (
         <View style={styles.container}>

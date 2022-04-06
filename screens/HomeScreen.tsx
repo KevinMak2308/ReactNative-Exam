@@ -1,10 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { logout } from '../store/actions/user.actions';
 
 export default function HomeScreen() {
+    const dispatch = useDispatch();
+
     return (
         <View style={styles.container}>
             <Text>Home Screen</Text>
+            <Button title="Logout" onPress={() => dispatch(logout())} />
         </View>
     );
 }
