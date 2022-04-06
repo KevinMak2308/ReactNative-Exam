@@ -46,6 +46,17 @@ export default function App() {
   return (
     <Provider store={store}>
 
+      {/* Move navigation related code to a seperate component that is used here */}
+      {/* Determine if the user is logged in and display:
+      A stack navigator (only) with signup and login
+      Our "normal" app with tabs navigation */}
+      {/* {user !== undefined ? (
+                // Show the app with all navigation
+                
+            ) : (
+                // show a stack navigator with only signup and login screens.
+                
+            )} */}
 
       <NavigationContainer>
         <Tab.Navigator screenOptions={{ headerShown: false }}>
