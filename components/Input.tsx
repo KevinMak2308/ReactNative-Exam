@@ -3,9 +3,9 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 
 
 
-const Input = ({ title, inputValue, error }:
-    { title: string, inputValue: string, error: string }) => {
-    const [text, setText] = useState(inputValue)
+const Input = ({ title, inputValue, error, setText }:
+    { title: string, inputValue: string, error: string, setText: (i: string) => void }) => {
+
     const [entered, setEntered] = useState(false)
 
     const handleChangeText = (input: string) => {
@@ -16,8 +16,8 @@ const Input = ({ title, inputValue, error }:
     return (
         <View style={styles.container}>
             <Text>{title}</Text>
-            <TextInput value={text} onChangeText={handleChangeText} onBlur={() => setEntered(true)} />
-            {text === '' && entered ? <Text>{error}</Text> : <></>}
+            <TextInput value={inputValue} onChangeText={handleChangeText} onBlur={() => setEntered(true)} />
+            {inputValue === '' && entered ? <Text>{error}</Text> : <></>}
         </View>
     );
 }
