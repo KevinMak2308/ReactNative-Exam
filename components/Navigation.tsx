@@ -5,7 +5,9 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from '../App';
+import EditProfileScreen from '../screens/EditProfileScreen';
 import HomeScreen from '../screens/HomeScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import SignupScreen from '../screens/SignupScreen';
 import Screen1 from './../screens/Screen1';
 import Screen2 from './../screens/Screen2';
@@ -25,6 +27,15 @@ function ChatStackNavigator() {
     );
 }
 
+function ProfileStackNavigator() {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Profile" component={ProfileScreen} />
+            <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+        </Stack.Navigator>
+    )
+}
+
 
 export default function Navigation() {
     const user = useSelector((state: RootState) => state.user.loggedInUser)
@@ -41,7 +52,7 @@ export default function Navigation() {
                     <Tab.Screen name="Home" component={HomeScreen} />
                     {/* <Tab.Screen name="Discover" component={DiscoverScreen} /> */}
                     <Tab.Screen name="Chat" component={ChatStackNavigator} />
-                    {/* <Tab.Screen name="Menu" component={MenuScreen} /> */}
+                    <Tab.Screen name="Menu" component={ProfileStackNavigator} />
                 </Tab.Navigator>
             ) : (
                 // show a stack navigator with only signup and login screens.
