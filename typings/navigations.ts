@@ -5,4 +5,5 @@ export type StackParamList = {
     Signup: undefined;
     Profile: undefined;
     EditProfile: undefined;
+    EventScreen: undefined;
 }

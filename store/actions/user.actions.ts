@@ -22,7 +22,7 @@ export const signup = (email: string, password: string) => {
     return async (dispatch: any, getState: any) => {
         //const token = getState().user.token; // if you have a reducer named user(from combineReducers) with a token variable​
 
-        const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCwa6vi4jY6Ll_9HmfNW07uz_dlUl3Z3bI', {
+        const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyD7eOPjvfuxSmPlBJfOnKON9LSly5FMFJM', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -24,7 +24,7 @@ export default function SignupScreen() {
     }
 
     useEffect(() => {
-        readPersistedUserInfo();
+        //readPersistedUserInfo();
     }, [])
 
 
