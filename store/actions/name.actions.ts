@@ -1,8 +1,9 @@
 import { Name } from "../../entities/Name";
 
-//https://k-osexamreact-default-rtdb.europe-west1.firebasedatabase.app/name
+
 
 export const FETCH_NAMES = 'FETCH_NAMES';
+export const ADD_NAME = 'ADD_NAME';
 
 
 export const fetchName = () => {
@@ -41,3 +42,39 @@ export const fetchName = () => {
         }
     };
 }
+
+    export const addName = (name: Name) => {
+        return async (dispatch: any, getState: any) => {
+           
+    
+            //delete chatroom.id // for an update, this would remove the id attribute (and value) from the chatroom
+            const response = await fetch(
+                'https://k-osexamreact-default-rtdb.europe-west1.firebasedatabase.app/names.json',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(
+                    name
+                )
+            });
+    
+            // console.log(await response.json());
+    
+            if (!response.ok) {
+                //There was a problem..
+                //dispatch({type: ADD_CHATROOM_FAILED, payload: 'something'})
+            } else {
+                const data = await response.json(); // json to javascript
+                // let chatrooms = []
+                // for (const key in data) {
+                //     console.log(data[key].name)​
+                // }
+    
+                console.log("data from server", data);
+                name.id = data.name;
+    
+                dispatch({ type: ADD_NAME, payload: name })
+            }
+        };
+};

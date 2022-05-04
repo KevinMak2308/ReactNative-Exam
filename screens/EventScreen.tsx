@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { Button, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Name } from '../entities/Name';
-import { fetchName } from '../store/actions/name.actions';
+import { addName, fetchName } from '../store/actions/name.actions';
 import { StackParamList } from "../typings/navigations";
 
 type ScreenNavigationType = NativeStackNavigationProp<
@@ -14,12 +14,12 @@ type ScreenNavigationType = NativeStackNavigationProp<
 
 export default function EventScreen() {
     const navigation = useNavigation<ScreenNavigationType>()
-    const [title, onChangeTitle] = React.useState('');
+    const [first, onChangeFirst] = React.useState('');
+    const [last, onChangeLast] = React.useState('');
 
-    const isHappy = useSelector((state: any) => state.chat.isHappy) // subscribe to redux store and select attribute (isHappy)
     const names: Name[] = useSelector((state: any) => state.name?.names)
 
-    // console.log("isHappy", isHappy);
+    
     const dispatch = useDispatch()
 
     useEffect(() => { // only runs dispatch the first time the component renders
@@ -27,27 +27,39 @@ export default function EventScreen() {
     }, [])
 
     const renderName = ({ item }: { item: any }) => (
-        <View>
         <Text>{item.first}</Text>
-        <Text>{item.last}</Text>
-        </View>
+        
     );
+  
+
+    const handleAddName = () => {
+        const name: Name = new Name(first, last );
+        dispatch(addName(name));
+    }
+
+
 
     return (
         <View style={styles.container}>
             <Text> Event Screen </Text>
-            <Button title="Go to screen 2" onPress={() => navigation.navigate("Screen2")} />
-
+            
             <FlatList
                 data={names}
-                renderItem={renderName}
+                renderItem={({item}) => <Text> {item.first} </Text> }
+               
             />
 
             <TextInput
-                onChangeText={onChangeTitle}
-                value={title}
-                placeholder="Name of Event"
+                onChangeText={onChangeFirst}
+                value={first}
+                placeholder="first name"
             />
+              <TextInput
+                onChangeText={onChangeLast}
+                value={last}
+                placeholder="last name"
+            />
+            <Button title="Create Name" onPress={handleAddName} />
         </View>
     );
 }
@@ -58,5 +70,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        
     },
 })
