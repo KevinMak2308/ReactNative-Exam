@@ -33,12 +33,12 @@ export const fetchName = () => {
                 names.push(new Name(obj.first, obj.last, key))
             }
 
-            console.log("names", names);
+            console.log("Here we are fetching our array from Firebase: ", names);
 
             // console.log("data from server", data);
             //chatroom.id = data.name;
 
-            dispatch({ type: 'FETCH_NAME', payload: names })
+            dispatch({ type: FETCH_NAMES, payload: names })
         }
     };
 }
@@ -71,7 +71,7 @@ export const fetchName = () => {
                 //     console.log(data[key].name)​
                 // }
     
-                console.log("data from server", data);
+                //console.log("data from server", data);
                 name.id = data.name;
     
                 dispatch({ type: ADD_NAME, payload: name })

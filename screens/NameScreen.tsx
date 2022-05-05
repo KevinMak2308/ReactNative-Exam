@@ -9,46 +9,45 @@ import { StackParamList } from "../typings/navigations";
 
 type ScreenNavigationType = NativeStackNavigationProp<
     StackParamList,
-    "EventScreen"
+    "NameScreen"
 >
 
-export default function EventScreen() {
+export default function NameScreen() {
     const navigation = useNavigation<ScreenNavigationType>()
     const [first, onChangeFirst] = React.useState('');
     const [last, onChangeLast] = React.useState('');
 
     const names: Name[] = useSelector((state: any) => state.name?.names)
-
+    console.log("WE ARE HERE TO SEE NAMES: ", names);
     
     const dispatch = useDispatch()
 
     useEffect(() => { // only runs dispatch the first time the component renders
         dispatch(fetchName())
     }, [])
-
-    const renderName = ({ item }: { item: any }) => (
-        <Text>{item.first}</Text>
-        
-    );
   
-
     const handleAddName = () => {
         const name: Name = new Name(first, last );
         dispatch(addName(name));
     }
 
-
+    const renderName = ({ item }: { item: any }) => (
+        <View>
+        <Text>{item.first}</Text>
+        <Text>{item.last}</Text>
+        </View>
+    );
 
     return (
         <View style={styles.container}>
-            <Text> Event Screen </Text>
+            <Text> Name Screen </Text>
             
-            <FlatList
+                <FlatList
                 data={names}
-                renderItem={({item}) => <Text> {item.first} </Text> }
-               
-            />
+                renderItem={renderName}
+                />           
 
+                
             <TextInput
                 onChangeText={onChangeFirst}
                 value={first}

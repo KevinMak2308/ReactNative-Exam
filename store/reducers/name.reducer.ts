@@ -1,19 +1,33 @@
 import { Name } from "../../entities/Name";
-import { FETCH_NAMES, ADD_NAME } from "../actions/name.actions";
+import { ADD_NAME, FETCH_NAMES } from "../actions/name.actions";
 
-
-
-const initialState = {
-    name: [{first: "hej", last:"med dig"}]
+const initialState: ReduxState = {
+    names: [],
+    counter: 0,
+    name: "Name Event"
 }
 
-const nameReducer = (state = initialState, action: any ) => {
+interface ReduxState {
+    names: Name[]
+    counter: number
+    name: string
+}
+
+interface ReduxAction {
+    type: string,
+    payload?: number | string | Name
+}
+
+const nameReducer = (state: ReduxState = initialState, action: ReduxAction ) => {
     switch (action.type) {
-        case FETCH_NAMES:
-        return { ...state, names: action.payload }
         case ADD_NAME:
             console.log(action.payload);
-            return { ...state, names: [...state.name, action.payload] }
+            return { ...state, names: [...state.names, action.payload] }
+
+            case FETCH_NAMES:
+                console.log("FETCH_NAMES" + "Are we here yet?!")
+                return { ...state, names: action.payload }
+                
         default:
             return state;
     }
