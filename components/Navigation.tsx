@@ -11,7 +11,8 @@ import ProfileScreen from '../screens/ProfileScreen';
 import SignupScreen from '../screens/SignupScreen';
 import Screen1 from './../screens/Screen1';
 import NameScreen from '../screens/NameScreen';
-import EventScreen from '../screens/GetEventScreen';
+import AddEventScreen from '../screens/AddEventScreen';
+import GetEventScreen from '../screens/GetEventScreen';
 import { StackParamList } from "./../typings/navigations";
 
 const Stack = createNativeStackNavigator<StackParamList>();
@@ -29,7 +30,8 @@ function ChatStackNavigator() {
 function EventStackNavigator() {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="EventScreen" component={EventScreen} />
+            <Stack.Screen name="GetEventScreen" component={GetEventScreen} />
+            <Stack.Screen name="AddEventScreen" component={AddEventScreen} />
         </Stack.Navigator>
     );
 }

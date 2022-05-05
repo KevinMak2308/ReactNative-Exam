@@ -7,12 +7,13 @@ import { Event } from '../entities/Event';
 import { addEvent, fetchEvents } from '../store/actions/event.actions';
 import { StackParamList } from "../typings/navigations";
 
-type ScreenNavigationType = NativeStackNavigationProp <StackParamList, "EventScreen">
+type ScreenNavigationType = NativeStackNavigationProp <StackParamList, "GetEventScreen">
 
 export default function EventScreen() {
     const navigation = useNavigation<ScreenNavigationType>()
-    const [title, onChangeTitle] = React.useState('');
-    const [description, onChangeDescription] = React.useState('');
+    
+    // const [title, onChangeTitle] = React.useState('');
+    // const [description, onChangeDescription] = React.useState('');
 
     const events: Event[] = useSelector((state: any) => state.event?.events);
     const dispatch = useDispatch();
@@ -21,10 +22,10 @@ export default function EventScreen() {
         dispatch(fetchEvents())
     }, []);
 
-    const handleAddEvent = () => {
-        const event: Event = new Event(title, description)
-        dispatch(addEvent(event))
-    }
+    // const handleAddEvent = () => {
+    //     const event: Event = new Event(title, description)
+    //     dispatch(addEvent(event))
+    // }
 
     const renderEvents = ({ item }: { item: any }) => (
         <View>
@@ -35,14 +36,16 @@ export default function EventScreen() {
 
     return (
         <View style={styles.container}>
-            <Text> Event Screen </Text>
+            <Text> All Events </Text>
+            <Button title='Create Event' onPress={() => navigation.navigate("AddEventScreen")} />
+
 
             <FlatList 
                 data={events}
                 renderItem={renderEvents}
             />
 
-            <TextInput 
+            {/* <TextInput 
                 onChangeText={onChangeTitle}
                 value={title}
                 placeholder="Event Title"
@@ -54,7 +57,7 @@ export default function EventScreen() {
                 placeholder="Event Description"
                 />
 
-            <Button title="Create Event" onPress={handleAddEvent} />
+            <Button title="Create Event" onPress={handleAddEvent} /> */}
 
         </View>
     )
