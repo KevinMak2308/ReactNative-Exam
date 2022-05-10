@@ -1,21 +1,29 @@
-import { useNavigation } from '@react-navigation/native';
+import { getStateFromPath, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
 import { Button, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Event } from '../entities/Event';
-import { addEvent, fetchEvents } from '../store/actions/event.actions';
+import { fetchEvents, userParticipating } from '../store/actions/event.actions';
 import { StackParamList } from "../typings/navigations";
 
 type ScreenNavigationType = NativeStackNavigationProp <StackParamList, "GetEventScreen">
 
+
+
 export default function EventScreen() {
-    const navigation = useNavigation<ScreenNavigationType>()
+
+const navigation = useNavigation<ScreenNavigationType>()
     
     // const [title, onChangeTitle] = React.useState('');
     // const [description, onChangeDescription] = React.useState('');
 
     const events: Event[] = useSelector((state: any) => state.event?.events);
+    
+    //const participatingUser = useSelector((state: any) => state.event?.participating);
+
+    const user = useSelector((state: any) => state.user?.loggedInUser);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -27,12 +35,42 @@ export default function EventScreen() {
     //     dispatch(addEvent(event))
     // }
 
-    const renderEvents = ({ item }: { item: any }) => (
+    const renderEvents = ({ item }: { item: Event }) => (
         <View>
         <Text>{item.title}</Text>
         <Text>{item.description}</Text>
+
+
+        <Button
+            onPress={() => participateButton(item.id)}
+            title="Going"
+          />
+
+        <Button
+            onPress={notParticipateButton}
+            title="Not Going"
+          />
         </View>
     );
+        
+        const participateButton = (id: any) => {
+
+            console.log("This is our event id: ", id);
+
+            dispatch(userParticipating(user.email, id))
+            
+            console.log("This is the user email: ", user.email);
+            
+            alert("You've responded to the event.")
+        
+        }
+
+        const notParticipateButton = () => {
+        
+            console.log("This is the user email: ", user.email);
+            alert("You've responded to the event.")
+            
+            }
 
     return (
         <View style={styles.container}>
@@ -55,9 +93,9 @@ export default function EventScreen() {
                 onChangeText={onChangeDescription}
                 value={description}
                 placeholder="Event Description"
-                />
+    />*/}
 
-            <Button title="Create Event" onPress={handleAddEvent} /> */}
+            {/* <Button title="Create Event" onPress={handleAddEvent} />  */}
 
         </View>
     )

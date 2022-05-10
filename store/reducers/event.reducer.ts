@@ -1,21 +1,19 @@
 import { Event } from "../../entities/Event";
-import { ADD_EVENT, FETCH_EVENTS } from "../actions/event.actions";
+import { ADD_EVENT, FETCH_EVENTS, USER_PARTICIPATING } from "../actions/event.actions";
 
 const initialState: ReduxState = {
     events: [],
-    counter: 0,
-    name: "Event Name"
+
 }
 
 interface ReduxState {
     events: Event[]
-    counter: number
-    name: string
+    
 }
 
 interface ReduxAction {
     type: string,
-    payload?: number | string | Event
+    payload?: Event
 }
 
 const eventReducer = (state: ReduxState = initialState, action: ReduxAction) => {
@@ -25,6 +23,9 @@ const eventReducer = (state: ReduxState = initialState, action: ReduxAction) => 
 
         case FETCH_EVENTS:
             return { ...state, events: action.payload }
+
+         case USER_PARTICIPATING:
+             return state
 
         default:
             return state;
