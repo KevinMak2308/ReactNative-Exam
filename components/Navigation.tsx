@@ -9,6 +9,7 @@ import EditProfileScreen from '../screens/EditProfileScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SignupScreen from '../screens/SignupScreen';
+import LoginScreen from '../screens/LoginScreen';
 import Screen1 from './../screens/Screen1';
 import NameScreen from '../screens/NameScreen';
 import AddEventScreen from '../screens/AddEventScreen';
@@ -62,14 +63,13 @@ export default function Navigation() {
                     {/* <Tab.Screen name="Discover" component={DiscoverScreen} /> */}
                     <Tab.Screen name="Chat" component={ChatStackNavigator} />
                     <Tab.Screen name="Menu" component={ProfileStackNavigator} />
-                    <Tab.Screen name="Names" component={ChatStackNavigator} />
                     <Tab.Screen name="Events" component={EventStackNavigator} />
                 </Tab.Navigator>
             ) : (
                 // show a stack navigator with only signup and login screens.
                 <Stack.Navigator>
                     <Stack.Screen name="Signup" component={SignupScreen} />
-                    {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
+                    <Stack.Screen name="LoginScreen" component={LoginScreen} /> 
                 </Stack.Navigator>
             )}
         </NavigationContainer>

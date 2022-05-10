@@ -7,20 +7,20 @@ import { Event } from '../entities/Event';
 import { fetchEvents, userParticipating } from '../store/actions/event.actions';
 import { StackParamList } from "../typings/navigations";
 
-type ScreenNavigationType = NativeStackNavigationProp <StackParamList, "GetEventScreen">
+type ScreenNavigationType = NativeStackNavigationProp<StackParamList, "GetEventScreen">
 
 
 
 export default function EventScreen() {
 
-const navigation = useNavigation<ScreenNavigationType>()
-    
+    const navigation = useNavigation<ScreenNavigationType>()
+
     // const [title, onChangeTitle] = React.useState('');
     // const [description, onChangeDescription] = React.useState('');
 
     const events: Event[] = useSelector((state: any) => state.event?.events);
-    
-    //const participatingUser = useSelector((state: any) => state.event?.participating);
+
+    const participatingUser = useSelector((state: any) => state.event?.participating?.email);
 
     const user = useSelector((state: any) => state.user?.loggedInUser);
 
@@ -35,71 +35,96 @@ const navigation = useNavigation<ScreenNavigationType>()
     //     dispatch(addEvent(event))
     // }
 
-    const renderEvents = ({ item }: { item: Event }) => (
+    const renderParticipatingEvents = ({ item }: { item: Event }) => (
         <View>
-        <Text>{item.title}</Text>
-        <Text>{item.description}</Text>
+            <Text>{item.title}</Text>
+            <Text>{item.description}</Text>
 
-
-        <Button
-            onPress={() => participateButton(item.id)}
-            title="Going"
-          />
-
-        <Button
-            onPress={notParticipateButton}
-            title="Not Going"
-          />
+            <Button
+                onPress={notParticipateButton}
+                title="Not Going"
+            />
         </View>
     );
-        
-        const participateButton = (id: any) => {
 
-            console.log("This is our event id: ", id);
+    const renderEvents = ({ item }: { item: Event }) => (
 
-            dispatch(userParticipating(user.email, id))
-            
-            console.log("This is the user email: ", user.email);
-            
-            alert("You've responded to the event.")
-        
-        }
 
-        const notParticipateButton = () => {
-        
-            console.log("This is the user email: ", user.email);
-            alert("You've responded to the event.")
-            
-            }
+        <View>
+            <Text>{item.title}</Text>
+            <Text>{item.description}</Text>
 
+
+
+            <Button
+                onPress={() => participateButton(item.id)}
+                title="Going"
+            />
+
+            <Button
+                onPress={notParticipateButton}
+                title="Not Going"
+            />
+
+        </View>
+    );
+
+
+
+    const participateButton = (id: any) => {
+
+        console.log("This is our event id: ", id);
+
+        dispatch(userParticipating(user.email, id))
+
+        console.log("This is the user email: ", user.email);
+
+        alert("You've responded to the event.")
+
+    }
+
+    const notParticipateButton = () => {
+
+        console.log("This is the user email: ", user.email);
+        alert("You've responded to the event.")
+
+    }
+
+     if(user.email == participatingUser) {
+        return (<View style={styles.container}>
+            <Text> All Events </Text>
+            <Button title='Create Event' onPress={() => navigation.navigate("AddEventScreen")} />
+
+
+            <FlatList
+                data={events}
+                renderItem={renderParticipatingEvents}
+
+            />
+
+
+
+        </View>)
+
+    }
     return (
         <View style={styles.container}>
             <Text> All Events </Text>
             <Button title='Create Event' onPress={() => navigation.navigate("AddEventScreen")} />
 
 
-            <FlatList 
+            <FlatList
                 data={events}
                 renderItem={renderEvents}
+
             />
 
-            {/* <TextInput 
-                onChangeText={onChangeTitle}
-                value={title}
-                placeholder="Event Title"
-                />
 
-            <TextInput 
-                onChangeText={onChangeDescription}
-                value={description}
-                placeholder="Event Description"
-    />*/}
-
-            {/* <Button title="Create Event" onPress={handleAddEvent} />  */}
 
         </View>
     )
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -107,6 +132,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        
+
     },
 })

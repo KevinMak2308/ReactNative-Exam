@@ -3,8 +3,19 @@ import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { rehydrateUser, signup } from '../store/actions/user.actions';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { StackParamList } from "../typings/navigations";
+
+type ScreenNavigationType = NativeStackNavigationProp<
+    StackParamList,
+    "Signup"
+>
+
+
 
 export default function SignupScreen() {
+    const navigation = useNavigation<ScreenNavigationType>()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
@@ -34,6 +45,8 @@ export default function SignupScreen() {
             <TextInput value={email} placeholder="email" onChangeText={setEmail} />
             <TextInput value={password} placeholder="password" onChangeText={setPassword} />
             <Button title="Signup" onPress={() => dispatch(signup(email, password))} />
+            <Text>Already signed up?</Text>
+            <Button title="Login here" onPress={() => navigation.navigate("LoginScreen")} />
         </View>
     );
 }
