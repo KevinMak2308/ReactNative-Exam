@@ -1,7 +1,7 @@
 import { getStateFromPath, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
-import { Button, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Event } from '../entities/Event';
 import { fetchEvents, userParticipating } from '../store/actions/event.actions';
@@ -26,7 +26,8 @@ export default function EventScreen() {
     const renderEvents = ({ item }: { item: Event }) => {
         console.log("Here is item.participating: ", item.participating)
         const going: boolean | undefined = item.participating && item.participating.findIndex(email => email == user.email) > -1 ; 
-        return (
+        
+        return (  
         <View>
             <Text>{item.title}</Text>
             <Text>{item.description}</Text>
@@ -42,8 +43,7 @@ export default function EventScreen() {
             />
             )
         }
-        </View>
-        
+        </View>   
     )
 }
 
@@ -62,9 +62,9 @@ export default function EventScreen() {
     }
 
     return (
+        
         <View style={styles.container}>
             <Text> All Events </Text>
-
             <Button title='Create Event' onPress={() => navigation.navigate("AddEventScreen")} />
 
             <FlatList

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { rehydrateUser, login } from '../store/actions/user.actions';
+import Appbutton from "../components/AppButton"
 
 export default function LoginScreen() {
     const [email, setEmail] = useState('');
@@ -34,7 +35,10 @@ export default function LoginScreen() {
             <Text>Login Screen</Text>
             <TextInput value={email} placeholder="email" onChangeText={setEmail} />
             <TextInput value={password} placeholder="password" onChangeText={setPassword} />
-            <Button title="login" onPress={() => dispatch(login(email, password))} />
+            
+            <Appbutton title="Login" onPress={() => dispatch(login(email, password))} />
+            
+            {/* <Button title="login" onPress={() => dispatch(login(email, password))} /> */}
         </View>
     );
 }
