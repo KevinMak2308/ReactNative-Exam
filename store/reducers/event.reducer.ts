@@ -11,7 +11,6 @@ const initialState: ReduxState = {
 
 }
 
-
 interface ReduxAction {
     type: string,
     payload?: Event
@@ -26,7 +25,10 @@ const eventReducer = (state: ReduxState = initialState, action: ReduxAction) => 
             return { ...state, events: action.payload }
 
          case USER_PARTICIPATING:
-             return {...state, events: action.payload}
+             return state; 
+             
+             //Copy our event. Create a new array of participating. And that new array needs to contain the added email. 
+             //Mutated event needs to replace the original one. 
 
         default:
             return state;

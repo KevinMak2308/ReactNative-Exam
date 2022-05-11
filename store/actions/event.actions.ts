@@ -21,42 +21,27 @@ export const fetchEvents = () => {
         } else {
             const data = await response.json()
             let events: Event[] = [];
-            let participating = []
             for (const key in data) {
                 const eventObject = data[key];
-                events.push(new Event(eventObject.title, eventObject.description, eventObject.participating, key))
 
-            
+                let participating = []
+
 
                 for (const key2 in data[key].participating) {
                     let participatingInAsingleEvent = data[key].participating[key2]
-                     participating.push(participatingInAsingleEvent)
 
                      const participatingUser = new User(data.email, '', '');
+                     participating.push(participatingInAsingleEvent.email)
 
-                     //while(data[key].participating[key2] == )
                 }
-
-                //søg efter om den burger der er logged in findes i participating array
-
-                //hvis brugeren findes, fjern going knappen for det enkelte event.
-                //if(user.email == participating[key2]email)
                 
+                events.push(new Event(eventObject.title, eventObject.description, participating, key))
 
             }
-
             
-            
-            console.log("Our Event here: ", events);
-            dispatch({ type: FETCH_EVENTS, payload: events })
-
-            console.log("det her userevents", participating);
+            dispatch({ type: FETCH_EVENTS, payload: events })   
 
         }
-  
-
-
-
 
     }
 }

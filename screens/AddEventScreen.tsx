@@ -15,7 +15,6 @@ import { StackParamList } from "../typings/navigations";
     const [title, onChangeTitle] = React.useState('');
     const [description, onChangeDescription] = React.useState('');
 
-   // const events: Event[] = useSelector((state: any) => state.event?.events);
     const dispatch = useDispatch();
 
     const handleAddEvent = () => {
