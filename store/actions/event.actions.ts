@@ -26,13 +26,10 @@ export const fetchEvents = () => {
 
                 let participating = []
 
-
                 for (const key2 in data[key].participating) {
                     let participatingInAsingleEvent = data[key].participating[key2]
 
-                     const participatingUser = new User(data.email, '', '');
                      participating.push(participatingInAsingleEvent.email)
-
                 }
                 
                 events.push(new Event(eventObject.title, eventObject.description, participating, key))

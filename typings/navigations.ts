@@ -7,6 +7,7 @@ export type StackParamList = {
     Profile: undefined;
     EditProfile: undefined;
     NameScreen: undefined;
+    QueryEventScreen: undefined;
     GetEventScreen: undefined;
     AddEventScreen: undefined;
    

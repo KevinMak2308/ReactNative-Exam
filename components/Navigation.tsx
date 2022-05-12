@@ -14,6 +14,7 @@ import Screen1 from './../screens/Screen1';
 import NameScreen from '../screens/NameScreen';
 import AddEventScreen from '../screens/AddEventScreen';
 import GetEventScreen from '../screens/GetEventScreen';
+import QueryEventScreen from '../screens/QueryEventScreen';
 import { StackParamList } from "./../typings/navigations";
 
 const Stack = createNativeStackNavigator<StackParamList>();
@@ -24,6 +25,14 @@ function ChatStackNavigator() {
         <Stack.Navigator>
             <Stack.Screen name="NameScreen" component={NameScreen} />
             <Stack.Screen name="Screen1" component={Screen1} />
+        </Stack.Navigator>
+    );
+}
+
+function QueryStackNavigator() {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="QueryEventScreen" component={QueryEventScreen} /> 
         </Stack.Navigator>
     );
 }
@@ -63,7 +72,9 @@ export default function Navigation() {
                     {/* <Tab.Screen name="Discover" component={DiscoverScreen} /> */}
                     <Tab.Screen name="Chat" component={ChatStackNavigator} />
                     <Tab.Screen name="Menu" component={ProfileStackNavigator} />
-                    <Tab.Screen name="Events" component={EventStackNavigator} />
+                    <Tab.Screen name="Events" component={EventStackNavigator} /> 
+                    <Tab.Screen name="QueryEvents" component={QueryStackNavigator} />                    
+                
                 </Tab.Navigator>
             ) : (
                 // show a stack navigator with only signup and login screens.

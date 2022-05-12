@@ -7,7 +7,8 @@ import chatReducer from './store/reducers/chat.reducer';
 import eventReducer from './store/reducers/event.reducer';
 import nameReducer from './store/reducers/name.reducer';
 import userReducer from './store/reducers/user.reducer';
-
+import { QueryClient, QueryClientProvider } from "react-query";
+import QueryEventScreen from './screens/QueryEventScreen';
 
 const rootReducer = combineReducers({
   chat: chatReducer,
@@ -22,11 +23,26 @@ export type RootState = ReturnType<typeof rootReducer>
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 // const store = createStore(rootReducer);
 
+const queryClient = new QueryClient();
+
 export default function App() {
   return (
+    
     <Provider store={store}>
-      <Navigation />
-    </Provider>
+      <QueryClientProvider client={queryClient}>
+          <Navigation />
+      </QueryClientProvider>
+    </Provider>  
+
+      
+    
+   
+
+    
+
+
+
+
   )
 }
 
